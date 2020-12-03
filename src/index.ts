@@ -63,22 +63,19 @@ export function bitmapDistance() {
             }
         }
 
-        // Iterate over all zero elements in the initial array
-        for (let i = 0; i < n; i++) {
-            for (let j = 0; j < m; j++) {
-                vertical(i, j);
-            }
-        }
-
-        // Print
+        /**
+         * Iterate over all zero elements in the initial array.
+         * Print each row once it's columns are calculated.
+         */
         for (let i = 0; i < n; i++) {
             let row = '';
             for (let j = 0; j < m; j++) {
+                vertical(i, j);
+
                 if (j === m - 1) {
                     row += `${newArr[i][j]} `;
                     console.log(row);
-                }
-                else row += `${newArr[i][j]} `;
+                } else row += `${newArr[i][j]} `;
             }
         }
     }
