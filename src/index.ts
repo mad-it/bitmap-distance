@@ -11,6 +11,8 @@ export function bitmapDistance() {
         const [n, m] = size.split(" ").map(Number);
         if (n < 1 || n > 182 || m < 1 || m > 182) throw new Error('Invalid size of the bitmap.');
 
+        let isValid = false;
+
         const arr: number[][] = [];
         const newArr: number[][] = [];
 
@@ -40,13 +42,16 @@ export function bitmapDistance() {
         };
 
         for (let i = 0; i < n; i++) {
-            const inputRow = readlineSync.question(`Input values of row ${i}: `);
+            const inputRow = readlineSync.question();
 
             /**
              * Separate the validation checks to ensure the appropriate Error is returned.
              */
             if (Number(inputRow.length) !== m) throw new Error(`Row should contain ${m} columns.`);
             if (!inputRow.match(/^[01]*$/)) throw new Error('Row should contain only 0 or 1 values.');
+
+            if (inputRow.includes('1')) isValid = true;
+            if (i === n - 1 && !isValid) throw new Error('Bitmap should contain at least one 1.');
 
             arr.push(inputRow.split('').map(Number));
 

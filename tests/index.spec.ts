@@ -92,5 +92,18 @@ describe('bitmapDistance', () => {
                 expect(bitmapDistance).toThrowError(`Row should contain only 0 or 1 values.`);
             });
         });
+
+        describe('bitmap validation', () => {
+            it('validates row values', () => {
+                jest.spyOn(readlineSync, 'questionInt').mockImplementationOnce(() => 1);
+                jest.spyOn(readlineSync, 'question')
+                    .mockImplementationOnce(() => '2 3')
+                    .mockImplementationOnce(() => '000')
+                    .mockImplementationOnce(() => '000');
+
+                bitmapDistance();
+                expect(bitmapDistance).toThrowError('Bitmap should contain at least one 1.');
+            });
+        });
     });
 });
