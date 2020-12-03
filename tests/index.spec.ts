@@ -1,11 +1,13 @@
 import { bitmapDistance } from '../src/index';
 import readlineSync from 'readline-sync';
 
-jest.mock('readline-sync')
+jest.mock('readline-sync');
 
 // Happy paths
 describe('bitmapDistance', () => {
     beforeEach(() => {
+        jest.spyOn(console, 'log').mockImplementation(() => {});
+
         // Happy path, overwrite for testing errors.
         jest.spyOn(readlineSync, 'questionInt').mockImplementationOnce(() => 1);
         jest.spyOn(readlineSync, 'question')
@@ -15,13 +17,18 @@ describe('bitmapDistance', () => {
     });
 
     afterEach(() => {
-        jest.resetAllMocks()
-        // jest.clearAllMocks();
+        jest.resetAllMocks();
     });
 
-    // describe('happy paths', () => {
+    describe('happy path', () => {
+        it('prints result to standard output', () => {
+            bitmapDistance();
 
-    // });
+            expect(console.log).toHaveBeenCalledTimes(2);
+            expect(console.log).toHaveBeenCalledWith('2 1 2');
+            expect(console.log).toHaveBeenCalledWith('1 0 1');
+        });
+    });
 
     describe('input validation', () => {
         describe('test cases input', () => {

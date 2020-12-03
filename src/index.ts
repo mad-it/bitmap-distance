@@ -73,7 +73,7 @@ export function bitmapDistance() {
                 vertical(i, j);
 
                 if (j === m - 1) {
-                    row += `${newArr[i][j]} `;
+                    row += `${newArr[i][j]}`;
                     console.log(row);
                 } else row += `${newArr[i][j]} `;
             }
